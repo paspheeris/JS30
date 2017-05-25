@@ -6,6 +6,18 @@
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <ol>
+    <li>Filter the list of inventors for those who were born in the 1500's</li>
+      <ul id="one"></ul>
+    <li id="two">Give us an array of the inventors' first and last names</li>
+    <li>Sort the inventors by birthdate, oldest to youngest</li>
+      <ol id="three"></ol>
+    <li id="four">How many years did all the inventors live?</li>
+    <li>Sort the inventors by years lived</li>
+      <ol id="five"></ol>
+    <li>Sort the inventors alphabetically</li>
+      <ul id ="six"></ul>
+  </ol>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -31,29 +43,101 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    var fifteens = inventors.filter(inventor => {
+      if(inventor.year > 1499 && inventor.year < 1600) {
+        return true;
+      }
+    });
+
+    var elemOne = document.querySelector('#one');
+    fifteens.forEach(obj => {
+      var li = document.createElement("li");
+      li.innerHTML = `${obj.first}  ${obj.last}`;
+      elemOne.appendChild(li);
+    })
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    var inventorsArr = inventors.map(obj => {
+      return `${obj.first}  ${obj.last}`;
+    });
 
+    var elemTwo = document.querySelector('#two');
+    var inAr = document.createElement("p");
+    inAr.innerHTML = inventorsArr;
+    elemTwo.appendChild(inAr);
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    var sorted = inventors.sort((a, b) => {
+      return a.year - b.year;
+    });
+
+    var elemThree = document.querySelector('#three');
+    sorted.forEach(obj => {
+      var entry = document.createElement("li");
+      entry.innerHTML = `${obj.year}: ${obj.first} ${obj.last}`
+      elemThree.appendChild(entry);
+    })
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    var yearsa = inventors.reduce((total, obj) => {
+      return total + (obj.passed - obj.year);
+    }, 0);
+
+    var elemFour = document.querySelector('#four');
+    var yearEntry = document.createElement("p");
+    yearEntry.innerHTML = yearsa;
+    elemFour.appendChild(yearEntry);
 
     // 5. Sort the inventors by years lived
+    var sorted2 = inventors.sort((a, b) => {
+      return (a.passed - a.year) - (b.passed - b.year);
+    });
+
+    var elemFive = document.querySelector("#five");
+    sorted2.forEach(obj => {
+      var inventor = document.createElement("li");
+      inventor.innerHTML = `${obj.first} ${obj.last}: ${obj.passed - obj.year}`
+      elemFive.appendChild(inventor);
+    });
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    var laa = document.querySelectorAll('li');
+    laa.forEach(entry => {
+	     if(entry.innerText.indexOf("de") !== -1) {
+        //console.log(entry.innerText)
+    }
+});
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    var elemSix = document.querySelector("#six");
+
+    var alpha = inventors.sort((objA, objB) => {
+      return (objA.last > objB.last) ? 1 : -1;
+    });
+
+    alpha.forEach(obj => {
+      var alpher = document.createElement("li");
+      alpher.innerText = `${obj.last}, ${obj.first}`;
+      elemSix.appendChild(alpher);
+    });
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    var counter = data.reduce(function(obj, item) {
+      if(!obj[item]) {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+
+    console.log(counter);
   </script>
 </body>
 </html>
