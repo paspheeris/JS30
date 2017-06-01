@@ -7,6 +7,18 @@
 </head>
 <body>
 <script>
+  const pressed = [];
+  const secretCode = 'paul';
+  window.addEventListener('keyup', e => {
+    pressed.push(e.key);
+    console.log(e.key, pressed);
+    let secretLength = secretCode.length;
+    let lastX = pressed.slice(pressed.length - secretLength);
+    console.log(lastX);
+    if (lastX.join('') === secretCode) {
+      console.log('secret enterered!')
+    }
+  })
 </script>
 </body>
 </html>
